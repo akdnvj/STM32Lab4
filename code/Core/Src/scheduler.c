@@ -44,7 +44,7 @@ void SCH_Update(void){
 }
 
 
-uint32_t SCH_Add_Task(void (* pFunction)(), uint32_t DELAY, uint32_t PERIOD){
+uint32_t SCH_Add_Task(void (* pFunction)(), uint32_t DELAY, uint32_t PERIOD, uint32_t idoftask){
     uint8_t newTaskIndex = 0;
     uint32_t sumDelay = 0;
     uint32_t newDelay = 0;
@@ -65,7 +65,13 @@ uint32_t SCH_Add_Task(void (* pFunction)(), uint32_t DELAY, uint32_t PERIOD){
             SCH_tasks_G[newTaskIndex].Delay = newDelay;
             SCH_tasks_G[newTaskIndex].Period = PERIOD;
             SCH_tasks_G[newTaskIndex].RunMe = (newDelay == 0) ? 1 : 0;
-            SCH_tasks_G[newTaskIndex].TaskID = Get_New_Task_ID();
+
+            if(idoftask==0 || idoftask == NO_TASK_ID)
+            {
+            	SCH_tasks_G[newTaskIndex].TaskID = Get_New_Task_ID();
+            }
+            else SCH_tasks_G[newTaskIndex].TaskID = idoftask;
+
             return SCH_tasks_G[newTaskIndex].TaskID;
         } else {
             if(SCH_tasks_G[newTaskIndex].pTask == 0x0000){
@@ -123,7 +129,7 @@ void SCH_Dispatch_Tasks(void){
         sTask temtask = SCH_tasks_G[0];
         SCH_Delete_Task(temtask.TaskID);
         if (temtask.Period != 0) {
-            SCH_Add_Task(temtask.pTask, temtask.Period, temtask.Period);
+            SCH_Add_Task(temtask.pTask, temtask.Period, temtask.Period, temtask.TaskID);
         }
     }
 }
