@@ -133,11 +133,11 @@ int main(void)
 
 
 
-  SCH_Add_Task(Task_500ms, 50, 50);
-  SCH_Add_Task(Task_1000ms, 100, 100);
-  SCH_Add_Task(Task_1500ms, 150, 150);
-  SCH_Add_Task(Task_2000ms, 200, 200);
-  SCH_Add_Task(Task_2500ms, 250, 250);
+  SCH_Add_Task(Task_500ms, 50, 50, 0);
+  SCH_Add_Task(Task_1000ms, 100, 100, 0);
+  SCH_Add_Task(Task_1500ms, 150, 150, 0);
+  SCH_Add_Task(Task_2000ms, 200, 200, 0);
+  SCH_Add_Task(Task_2500ms, 250, 250, 0);
 
   /* USER CODE END 2 */
 
